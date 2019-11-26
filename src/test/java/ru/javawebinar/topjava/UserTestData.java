@@ -1,8 +1,10 @@
 package ru.javawebinar.topjava;
 
 import org.springframework.test.web.servlet.ResultMatcher;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.to.MealTo;
 
 import java.util.Collections;
 import java.util.Date;
@@ -51,4 +53,33 @@ public class UserTestData {
     public static ResultMatcher contentJson(User expected) {
         return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
     }
+
+    public static void assertMatchMeal(MealTo actual, MealTo expected) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateTime");
+    }
+
+    public static void assertMatchMeal(Iterable<MealTo> actual, MealTo... expected) {
+        assertMatchMeal(actual, List.of(expected));
+    }
+
+    public static void assertMatchMeal(Iterable<MealTo> actual, Iterable<MealTo> expected) {
+        assertThat(actual).usingElementComparatorIgnoringFields("dateTime").isEqualTo(expected);
+    }
+
+    public static ResultMatcher contentJsonMealTo(Iterable<MealTo> expected) {
+        return result -> assertMatchMeal(readListFromJsonMvcResult(result, MealTo.class), expected);
+    }
+
+    public static ResultMatcher contentJsonMealTo(MealTo expected) {
+        return result -> assertMatchMeal(readFromJsonMvcResult(result, MealTo.class), expected);
+    }
+
+    public static ResultMatcher contentJsonMeal(Meal expected) {
+        return result -> assertMatchM(readFromJsonMvcResult(result, Meal.class), expected);
+    }
+
+    public static void assertMatchM(Meal actual, Meal expected) {
+        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateTime");
+    }
+
 }
