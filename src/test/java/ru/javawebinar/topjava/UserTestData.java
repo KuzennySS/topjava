@@ -54,32 +54,4 @@ public class UserTestData {
         return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
     }
 
-    public static void assertMatchMeal(MealTo actual, MealTo expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateTime");
-    }
-
-    public static void assertMatchMeal(Iterable<MealTo> actual, MealTo... expected) {
-        assertMatchMeal(actual, List.of(expected));
-    }
-
-    public static void assertMatchMeal(Iterable<MealTo> actual, Iterable<MealTo> expected) {
-        assertThat(actual).usingElementComparatorIgnoringFields("dateTime").isEqualTo(expected);
-    }
-
-    public static ResultMatcher contentJsonMealTo(Iterable<MealTo> expected) {
-        return result -> assertMatchMeal(readListFromJsonMvcResult(result, MealTo.class), expected);
-    }
-
-    public static ResultMatcher contentJsonMealTo(MealTo expected) {
-        return result -> assertMatchMeal(readFromJsonMvcResult(result, MealTo.class), expected);
-    }
-
-    public static ResultMatcher contentJsonMeal(Meal expected) {
-        return result -> assertMatchM(readFromJsonMvcResult(result, Meal.class), expected);
-    }
-
-    public static void assertMatchM(Meal actual, Meal expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "dateTime");
-    }
-
 }

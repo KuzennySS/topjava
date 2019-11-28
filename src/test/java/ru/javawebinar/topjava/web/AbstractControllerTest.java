@@ -14,6 +14,8 @@ import ru.javawebinar.topjava.AllActiveProfileResolver;
 import ru.javawebinar.topjava.repository.JpaUtil;
 
 import javax.annotation.PostConstruct;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
 
 @SpringJUnitWebConfig(locations = {
         "classpath:spring/spring-app.xml",
